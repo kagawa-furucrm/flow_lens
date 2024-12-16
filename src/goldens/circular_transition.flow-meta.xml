@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+  <start>
+    <locationX>0</locationX>
+    <locationY>0</locationY>
+    <connector>
+      <targetReference>myLoop</targetReference>
+    </connector>
+  </start>
+  <loops>
+    <name>myLoop</name>
+    <nextValueConnector>
+      <targetReference>myLoop</targetReference>
+    </nextValueConnector>
+  </loops>
+</Flow>

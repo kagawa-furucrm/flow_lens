@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+  <start>
+    <locationX>0</locationX>
+    <locationY>0</locationY>
+    <connector>
+      <targetReference>myRecordLookup</targetReference>
+    </connector>
+  </start>
+  <recordLookups>
+    <name>myRecordLookup</name>
+    <connector>
+        <targetReference>myRecordRollback</targetReference>
+    </connector>
+  </recordLookups>
+  <recordRollbacks>
+    <name>myRecordRollback</name>
+    <connector>
+      <targetReference>myScreen</targetReference>
+    </connector>
+  </recordRollbacks>
+  <screens>
+    <name>myScreen</name>
+  </screens>
+</Flow>
