@@ -1,6 +1,5 @@
-# Flowsetta Stone
+# Flow Lens
 
-<html>
 <table>
   <tr>
     <td>
@@ -11,12 +10,10 @@
         diffs.</p>
     </td>
     <td>
-      <img src="docs/img/Flowsetta_Stone.png">
+      <img src="docs/img/Flow_Lens.png">
     </td>
   </tr>
 </table>
-
-</html>
 
 ## Features
 
