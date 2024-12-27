@@ -8,7 +8,9 @@ documentation and code review significantly easier. It supports generating diagr
 and Graphviz, and can even highlight changes between different versions of a flow by processing Git
 diffs.
 
-**This is not an official Google product.**
+This is not an officially supported Google product. This project is not
+eligible for the [Google Open Source Software Vulnerability Rewards
+Program](https://bughunters.google.com/open-source-security).
 
 ## Features
 
