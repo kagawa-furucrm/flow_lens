@@ -92,7 +92,7 @@ strings.
 
 ## Frequently Asked Questions
 
-### Why is this written in Deno?
+### Why is this built using Deno?
 
 Porting the project from Google's internal Blaze build system to Deno was easier
 than setting it up in Node.js, as there is no transpilation step from TypeScript
