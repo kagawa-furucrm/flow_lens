@@ -2,15 +2,16 @@
 
 <img src="docs/img/Flow_Lens.png">
 
-This project helps decode Salesforce Flows by translating their raw XML definition files into
-human-understandable UML diagrams. These visualizations clarify the flow's structure and logic, making
-documentation and code review significantly easier. It supports generating diagrams using both PlantUML
-and Graphviz, and can even highlight changes between different versions of a flow by processing Git
-diffs.
+This project helps decode Salesforce Flows by translating their raw XML
+definition files into human-understandable UML diagrams. These visualizations
+clarify the flow's structure and logic, making documentation and code review
+significantly easier. It supports generating diagrams using both PlantUML and
+Graphviz, and can even highlight changes between different versions of a flow by
+processing Git diffs.
 
-This is not an officially supported Google product. This project is not
-eligible for the [Google Open Source Software Vulnerability Rewards
-Program](https://bughunters.google.com/open-source-security).
+This is not an officially supported Google product. This project is not eligible
+for the
+[Google Open Source Software Vulnerability Rewards Program](https://bughunters.google.com/open-source-security).
 
 ## Features
 
@@ -66,9 +67,9 @@ deno run \
 
 ## Output
 
-The output is a JSON file containing the generated UML diagram(s). The
-structure will contain the file paths and their associated old (if
-applicable) and new UML strings.
+The output is a JSON file containing the generated UML diagram(s). The structure
+will contain the file paths and their associated old (if applicable) and new UML
+strings.
 
 ```json
 [
@@ -88,6 +89,34 @@ applicable) and new UML strings.
   }
 ]
 ```
+
+## Frequently Asked Questions
+
+### Why is this written in Deno?
+
+Porting the project from Google's internal Blaze build system to Deno was easier
+than setting it up in Node.js, as there is no transpilation step from TypeScript
+to JavaScript. Deno's built-in TypeScript support made the migration process
+much smoother.
+
+### How is this different than Todd Halfpenny's flow visualizer?
+
+While
+[Todd's project](https://github.com/toddhalfpenny/salesforce-flow-visualiser) is
+excellent, Flow Lens was built and used internally at Google before Todd's
+project was available for commercial use. The key differentiator is that Flow
+Lens represents flow differences structurally, making it ideal for assistance
+with code reviews. This structural diff visualization is not available in other
+flow visualization tools.
+
+### What is the future of this project?
+
+We have two main goals for the future of Flow Lens:
+
+1. Migrate from a standalone Deno executable to a `sf` CLI plugin to better
+   integrate with the Salesforce development ecosystem
+2. Create a GitHub Action that automatically generates and displays diagram
+   diffs directly in pull requests, streamlining the code review process
 
 ## Example
 
