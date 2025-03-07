@@ -94,8 +94,6 @@ export interface RuntimeConfig {
   gitDiffToHash?: string;
   outputDirectory: string;
   outputFileName: string;
-  placerPath?: string;
-  dotExecutablePath?: string;
 }
 
 /**
@@ -144,8 +142,9 @@ export class ArgumentProcessor {
   }
 
   private validateDiagramTool() {
-    const lowerCaseDiagramTool = this.config.diagramTool.toLowerCase();
+    const lowerCaseDiagramTool = this.config.diagramTool?.toLowerCase();
     if (
+      !this.config.diagramTool ||
       !Object.values(DiagramTool).includes(lowerCaseDiagramTool as DiagramTool)
     ) {
       this.errorsEncountered.push(

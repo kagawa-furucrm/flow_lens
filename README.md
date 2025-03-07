@@ -41,7 +41,7 @@ available:
 deno run \
   --allow-read \
   --allow-write \
-  main.ts \
+  src/main/main.ts \
   --diagramTool="graphviz" \
   --filePath="/some/path/force-app/main/default/flows/ArticleSubmissionStatus.flow-meta.xml" \
   --filePath="/some/path/force-app/main/default/flows/LeadConversionScreen.flow-meta.xml" \
@@ -56,7 +56,7 @@ deno run \
 deno run \
   --allow-read \
   --allow-write \
-  main.ts \
+  src/main/main.ts \
   --diagramTool="graphviz" \
   --gitDiffFromHash="HEAD~1" \
   --gitDiffToHash="HEAD" \
@@ -261,7 +261,7 @@ We have two main goals for the future of Flow Lens:
 deno run \
   --allow-read \
   --allow-write \
-  main.ts \
+  src/main/main.ts \
   --diagramTool="graphviz" \
   --gitRepo="/path/to/salesforce_project/" \
   --gitDiffFromHash="HEAD~1" \

@@ -33,8 +33,6 @@ export function getTestConfig(): RuntimeConfig {
     gitDiffToHash: "HEAD",
     outputDirectory: "/",
     outputFileName: "test",
-    placerPath: "/",
-    dotExecutablePath: "echo",
   };
 }
 
