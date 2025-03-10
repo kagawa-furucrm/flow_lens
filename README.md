@@ -152,7 +152,7 @@ We have two main goals for the future of Flow Lens:
 +  <actionCalls>
 +    <name>Log_Error2</name>
 +    <label>Log Error</label>
-+    <locationX>440</locationX>
++    <locationX>440</X>
 +    <locationY>458</locationY>
 +    <actionName>Demo</actionName>
 +    <actionType>apex</actionType>
@@ -297,3 +297,29 @@ deno run \
     </td>
   </tr>
 </table>
+
+## Building and Deploying the Chrome Extension
+
+To build and deploy the Chrome extension, follow these steps:
+
+1. **Install dependencies:**
+
+   ```sh
+   npm install
+   ```
+
+2. **Build the extension:**
+
+   ```sh
+   npm run build
+   ```
+
+3. **Load the extension in Chrome:**
+
+   - Open Chrome and navigate to `chrome://extensions/`
+   - Enable "Developer mode" using the toggle switch in the top right corner
+   - Click "Load unpacked" and select the `dist` directory where the extension was built
+
+4. **Test the extension:**
+
+   - The extension should now be loaded in Chrome and ready for testing
