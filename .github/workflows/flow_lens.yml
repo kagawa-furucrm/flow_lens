@@ -1,0 +1,42 @@
+name: Flow Lens
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Deno
+      uses: denoland/setup-deno@v1
+      with:
+        deno-version: v1.x
+
+    - name: Install dependencies
+      run: |
+        deno cache src/main/main.ts
+
+    - name: Run Flow to UML tool
+      run: |
+        deno run --allow-read --allow-write src/main/main.ts --diagramTool="graphviz" --gitDiffFromHash="${{ github.event.before }}" --gitDiffToHash="${{ github.sha }}" --gitRepo="." --outputDirectory="." --outputFileName="flow_diagram"
+
+    - name: Commit and push UML diagrams
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add flow_diagram.json
+        git commit -m "Add UML diagrams"
+        git push
+
+    - name: Create pull request comment
+      uses: peter-evans/create-or-update-comment@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        issue-number: ${{ github.event.pull_request.number }}
+        body: |
+          UML diagrams have been generated and added to the pull request.

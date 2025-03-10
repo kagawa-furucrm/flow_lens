@@ -323,3 +323,112 @@ To build and deploy the Chrome extension, follow these steps:
 4. **Test the extension:**
 
    - The extension should now be loaded in Chrome and ready for testing
+
+## GitHub Action
+
+To automate the process of scanning pull requests, extracting Salesforce flow files, converting them to UML diagrams, and saving them to the same pull request for review, you can use the provided GitHub Action workflow.
+
+### Workflow File
+
+Create a file named `.github/workflows/flow_lens.yml` in your repository with the following content:
+
+```yaml
+name: Flow Lens
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Deno
+      uses: denoland/setup-deno@v1
+      with:
+        deno-version: v1.x
+
+    - name: Install dependencies
+      run: |
+        deno cache src/main/main.ts
+
+    - name: Run Flow to UML tool
+      run: |
+        deno run --allow-read --allow-write src/main/main.ts --diagramTool="graphviz" --gitDiffFromHash="${{ github.event.before }}" --gitDiffToHash="${{ github.sha }}" --gitRepo="." --outputDirectory="." --outputFileName="flow_diagram"
+
+    - name: Commit and push UML diagrams
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add flow_diagram.json
+        git commit -m "Add UML diagrams"
+        git push
+
+    - name: Create pull request comment
+      uses: peter-evans/create-or-update-comment@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        issue-number: ${{ github.event.pull_request.number }}
+        body: |
+          UML diagrams have been generated and added to the pull request.
+```
+
+### Usage
+
+1. **Create the workflow file:**
+
+   Create a file named `.github/workflows/flow_lens.yml` in your repository with the provided content.
+
+2. **Trigger the workflow:**
+
+   The workflow will automatically trigger on pull request events (opened, synchronize, reopened). It will check out the code, install dependencies, run the Flow to UML tool, and update the pull request with the generated UML diagrams.
+
+3. **Review the UML diagrams:**
+
+   The generated UML diagrams will be added to the pull request as a comment, allowing you to review the changes visually.
+
+## Installing the CLI Plugin
+
+To install the Salesforce CLI plugin for Flow Lens, follow these steps:
+
+1. **Install the Salesforce CLI:**
+
+   If you haven't already, install the Salesforce CLI by following the instructions [here](https://developer.salesforce.com/tools/sfdxcli).
+
+2. **Install the Flow Lens plugin:**
+
+   ```sh
+   sfdx plugins:install flow-lens
+   ```
+
+3. **Verify the installation:**
+
+   ```sh
+   sfdx plugins --core
+   ```
+
+   You should see `flow-lens` listed as one of the installed plugins.
+
+## Using the CLI Plugin
+
+Once the Flow Lens plugin is installed, you can use it to generate UML diagrams for Salesforce Flows. The following commands are available:
+
+### Generate UML Diagrams
+
+To generate UML diagrams for Salesforce Flows, use the following command:
+
+```sh
+sfdx flow-lens:generate --diagramTool="graphviz" --filePath="/some/path/force-app/main/default/flows/ArticleSubmissionStatus.flow-meta.xml" --outputDirectory="." --outputFileName="test"
+```
+
+### Generate UML Diagrams from Git Diff
+
+To generate UML diagrams for Salesforce Flows based on a Git diff, use the following command:
+
+```sh
+sfdx flow-lens:generate --diagramTool="graphviz" --gitDiffFromHash="HEAD~1" --gitDiffToHash="HEAD" --gitRepo="/some/path/" --outputDirectory="." --outputFileName="test"
+```

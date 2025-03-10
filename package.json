@@ -2,11 +2,14 @@
   "name": "flow-lens",
   "version": "1.0.0",
   "description": "A tool to decode Salesforce Flows and visualize them as UML diagrams.",
-  "main": "dist/bundle.js",
+  "main": "lib/commands/flow_lens.js",
   "scripts": {
-    "build": "webpack"
+    "build": "sfdx plugins:link .",
+    "test": "sfdx plugins:test"
   },
   "dependencies": {
+    "@salesforce/command": "^2.0.0",
+    "@salesforce/core": "^2.0.0",
     "ts-loader": "^9.2.6",
     "typescript": "^4.5.4",
     "webpack": "^5.64.4",
